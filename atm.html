@@ -1,0 +1,161 @@
+<html>
+
+<head>
+
+	<script>
+		var saldo = 10000.00; //Float
+		var nome = prompt(`Digite seu nome`);
+		alert(`Olá, ${nome}. É um prazer tê-lo aqui!`)
+
+		function inicio() {
+            
+			var escolha = parseInt(prompt('Selecione uma opção 1.) Saldo 2.) Extrato 3.) Saque  4.) Depósito 5.) Transferência 6.) Sair.'));
+
+			switch (escolha) {
+				case 1:
+					senhaC();
+					ver_saldo();
+					break;
+				
+				case 2: 
+					ver_extrato();
+					break;
+
+				case 3:
+					fazer_saque();
+					break;
+
+				case 4:
+					fazer_deposito();
+					break;
+				
+				case 5: 
+					fazer_transferencia();
+					break;
+
+				case 6: 
+					sair();
+					break
+			
+				default:
+					alert(`Informe um número de 1 a 6.`);
+					inicio();
+					break;
+			}
+			
+			
+		}		
+
+		function ver_saldo() {
+			
+			alert('Seu saldo atualizado é: ' + saldo);
+			inicio();
+		}
+		function ver_extrato() {
+			senhaC();
+			var extrato = `02/03 - Pagto conta de luz: -R$350,00   03/03 - Pagto conta de água: -R$100,85 
+			05/03 - Transferência - João silva: -R$390  08/03 - Pizzaria do seu zé: -R$ 60,00  
+			12/03 - Posto Ipiranga: -R$398,55   15/03 - Pagto Salário: +R$3450,00   18/03 - lojas Renner: -R$297,89 
+			20/03 - Padaria Michelli: -R$67,30  23/03 - Saque: -R$800,00  25/03 - Transferência - Lucas Moreira: +R$1100` ;
+			
+			
+			alert(`Seu extrato mensal é: ${extrato}`)
+			inicio();
+			
+		}
+
+		function fazer_deposito() {
+			var deposito = parseFloat(prompt('Qual o valor para depósito?'));
+			
+			// Not a Number -> Isso é um não-número?
+			if (isNaN(deposito) || deposito === '' ) {
+				alert('Por favor, informe um número!');
+				fazer_deposito(); // Função Recursiva
+			} else if (deposito <=0 ) {
+				alert('Por favor, digite um número maior que 0 para concluir a operação.');
+				fazer_deposito();
+			}
+			
+			else {
+				saldo = saldo + deposito;
+                //saldo += deposito; 
+
+				ver_saldo();
+			}
+		}
+		function fazer_transferencia(){
+			var conta = parseFloat(prompt('Informe o número da conta que irá receber a transferência'))
+			if (isNaN(conta) || conta ===''){
+				alert('Transferência não autorizada. Por favor, tente novamente.');
+				fazer_transferencia();
+			}
+
+			var transferencia = parseFloat(prompt('Qual o valor da transferência?'))
+			senhaC();
+			
+			if (isNaN(transferencia) || transferencia ==='' || transferencia <=0 || transferencia>saldo){
+				alert('Transferência não autorizada. Por favor, tente novamente.');
+				fazer_transferencia();
+			} else {
+				saldo = saldo - transferencia;
+				
+			  alert('Transferência concluida!')	
+			  alert(ver_saldo());
+			}
+
+		}
+
+		function fazer_saque() {
+			senhaC();
+			var saque = parseFloat(prompt('Qual o valor para saque?'));
+			
+			if (isNaN(saque) || saque === '') {
+				alert('Por favor, informe um número:');
+				fazer_saque();
+			} else if(saque>saldo) {
+				alert(`Operação não autorizada. Saldo insuficiente para saque.`)
+				sair();
+			} else if (saque <=0){
+				alert('Por favor, insira um valor maior que 0.')
+				sair();
+			} else {
+				saldo -= saque;
+				
+				ver_saldo();
+			}
+			
+			
+		}
+		
+
+		function erro() {
+			alert('Por favor, informe um número entre 1 e 6');
+			inicio();
+		}
+		function senhaC(){
+			var senha = parseFloat(prompt('Digite sua senha para continuar.')) 
+			if (isNaN(senha) || senha ==='' || senha != 3589){
+				alert('Senha não autorizada.');
+				senhaC();
+			} else {
+				senha = 3589
+			}
+		}
+
+		function sair() {
+			var confirma = confirm('Você deseja sair?');
+			if (confirma) {
+				alert(`${nome}, foi um prazer ter você por aqui!`)
+				window.close();
+			} else {
+                
+				inicio();
+			}
+		}
+
+		inicio();
+    </script>
+    </head>
+    <body>
+
+    </body></html>
